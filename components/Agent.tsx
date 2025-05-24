@@ -118,13 +118,20 @@ const Agent = ({
     setCallStatus(CallStatus.CONNECTING);
 
     if (type === "generate") {
-      await await vapi.start(generator, {
-        variableValues: {
-          username: userName,
-          userid: userId,
+       await vapi.start(
+        undefined,
+        {
+          variableValues: {
+            username: userName,
+            userid: userId,
+          },
+          clientMessages: ["transcript"],
+          serverMessages: [],
           // any other variables your workflow expects
         },
-      });
+       undefined,
+        generator
+      );
 
     } else {
       let formattedQuestions = "";
@@ -137,7 +144,8 @@ const Agent = ({
       await vapi.start(interviewer, {
         variableValues: {
           questions: formattedQuestions,
-        },
+        },clientMessages: ["transcript"],
+        serverMessages: [],
       });
     }
   };
